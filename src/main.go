@@ -2,22 +2,25 @@ package main
 
 import (
 	"fmt"
-	"appie/compose"
-
+	//"appie/dispatcher"
+	"os/exec"
+	"appie/dispatcher"
 )
 
 
 func main() {
-	var appie compose.ComposeFile
+	var (
+		output []byte
+		err error
+	)
 
-	appie = compose.GetAppConfig()
-
-	apps := appie.Apps
-
-	fmt.Println(appie.Apps["php"].DependsOn[1])
-
-	for key, val := range apps {
-		fmt.Println(key, val)
+	if output, err = exec.Command("sh", "-c", "cal").Output(); err != nil {
+		fmt.Println(output)
+		panic(err)
 	}
+
+
+	fmt.Println(string(output))
+	dispatcher.Dispatch()
 
 }

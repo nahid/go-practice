@@ -7,17 +7,25 @@ import (
 )
 
 type ComposeFile struct {
-	Name string `json:name`
-	Apps map[string]App `json:apps`
+	Name string `json:"name"`
+	Os string `json:"os"`
+	Apps map[string]App `json:"apps"`
 }
 
 type App struct {
-	Run string `json:run`
-	DependsOn []string `json:dependsOn`
-	Shell string `json:shell`
+	Run string `json:"run"`
+	DependsOn []string `json:"dependsOn"`
+	Shell string `json:"shell"`
+	After After `json:"after"`
 }
 
-func GetAppConfig() ComposeFile {
+type After struct {
+	Copy string `json:"copy"`
+	Env map[string]string `json:"env"`
+	Shell string `json:"shell"`
+}
+
+func GetAppCompose() ComposeFile {
 	var composeFile ComposeFile
 	file.Path = "."
 	jsonContents, err := file.GetContentsByte("appiefile.json")
