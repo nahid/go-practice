@@ -1,0 +1,15 @@
+{
+  "name": "Appie compose file",
+  "apps": {
+    "php": {
+      "run": "brew install php",
+      "dependsOn": ["brew", "nginx"]
+    },
+    "nginx": {
+      "run": "apt-get install nginx"
+    },
+    "brew": {
+      "shell": "/tmp/brew.sh"
+    }
+  }
+}
